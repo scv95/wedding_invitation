@@ -352,9 +352,14 @@
   }
   .map-address-box .addr-copy {
     margin-top: 10px; font-size: 11px; color: var(--gold);
-    cursor: pointer; letter-spacing: 1px;
+    cursor: pointer; letter-spacing: 0.8px;
     background: none; border: none; font-family: inherit;
-    padding: 0; text-decoration: underline; text-underline-offset: 3px;
+    padding: 4px 0; text-decoration: underline; text-underline-offset: 3px;
+    transition: all 0.3s ease;
+  }
+  .map-address-box .addr-copy:hover {
+    color: #B5924D;
+    opacity: 0.8;
   }
 
   /* 약도 이미지 */
@@ -414,11 +419,10 @@
   /* Horizontal gallery */
   .gallery-wrapper {
     position: relative; margin-top: 18px;
-    display: flex; align-items: center;
   }
   .gallery-track {
     overflow-x: auto; -webkit-overflow-scrolling: touch;
-    display: flex; gap: 12px; padding: 12px 6px;
+    display: flex; gap: 0; padding: 0;
     scroll-snap-type: x mandatory; scroll-behavior: smooth;
     width: 100%;
   }
@@ -430,10 +434,22 @@
   }
   .gallery-item img { display: block; width: 100%; height: auto; }
   .gallery-nav {
-    background: rgba(44,35,24,0.85); color: #fff; border: none;
+    position: absolute; top: 50%; transform: translateY(-50%);
+    background: rgba(44,35,24,0.6); color: #fff; border: none;
     width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
     display: flex; align-items: center; justify-content: center;
-    font-size: 22px; line-height: 1; margin: 0 8px;
+    font-size: 22px; line-height: 1; z-index: 10;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+    backdrop-filter: blur(2px);
+  }
+  .gallery-nav.prev { left: 12px; }
+  .gallery-nav.next { right: 12px; }
+  .gallery-nav:hover:not(:disabled) {
+    background: rgba(201,169,110,0.85);
+    color: var(--dark);
+    box-shadow: 0 4px 16px rgba(201,169,110,0.3);
+    transform: translateY(-50%) scale(1.1);
   }
   .gallery-nav:disabled { opacity: 0.35; cursor: default; }
 
@@ -460,17 +476,79 @@
     box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   }
   .account-toggle.secondary { background: #3C1E1E; }
-+  /* banners & highlight (merged from index edits) */
-+  .account-banners {
-+    display: flex; gap: 12px; justify-content: center; margin-top: 18px;
-+  }
-+  .acct-banner {
-+    flex: 1; max-width: 320px; padding: 12px 18px; border-radius: 6px;
-+    background: var(--gold); color: #fff; border: none; cursor: pointer;
-+    font-family: 'Noto Serif KR', serif; font-size: 13px; letter-spacing: 1px;
-+  }
-+  .acct-banner.secondary { background: #3C1E1E; }
-+  .account-entry.acct-highlight { background: rgba(201,169,110,0.12); border-radius: 4px; padding: 10px; }
+  /* banners & highlight (merged from index edits) */
+  .account-banners {
+    display: flex; gap: 12px; justify-content: center; margin-top: 18px;
+  }
+  .acct-banner {
+    flex: 1; max-width: 320px; padding: 13px 20px; border-radius: 6px;
+    background: var(--gold); color: #fff; border: none; cursor: pointer;
+    font-family: 'Noto Serif KR', serif; font-size: 14px; font-weight: 300; letter-spacing: 0.8px;
+    box-shadow: 0 3px 12px rgba(201,169,110,0.25);
+    transition: all 0.35s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .acct-banner:hover {
+    background: #B5924D;
+    box-shadow: 0 6px 20px rgba(201,169,110,0.4);
+    transform: translateY(-2px);
+  }
+  .acct-banner.secondary {
+    background: #3C1E1E;
+    box-shadow: 0 3px 12px rgba(60,30,30,0.25);
+  }
+  .acct-banner.secondary:hover {
+    background: #5A2D2D;
+    box-shadow: 0 6px 20px rgba(60,30,30,0.4);
+    transform: translateY(-2px);
+  }
+  .account-entry.acct-highlight { background: rgba(201,169,110,0.12); border-radius: 4px; padding: 10px; }
+
+  /* ── 모달 팝업 (모바일 호환) ── */
+  .modal-overlay {
+    display: none; position: fixed; inset: 0; z-index: 1000;
+    background: rgba(0,0,0,0.4); animation: fadeIn 0.3s ease;
+  }
+  .modal-overlay.show { display: flex; align-items: center; justify-content: center; }
+  .modal-content {
+    background: #fff; border-radius: 12px; box-shadow: 0 8px 32px rgba(0,0,0,0.15);
+    max-width: 380px; width: 90%; max-height: 70vh; overflow-y: auto;
+    padding: 28px; position: relative;
+  }
+  .modal-header {
+    font-size: 18px; font-weight: 500; color: var(--dark);
+    margin-bottom: 18px; text-align: center;
+  }
+  .modal-close {
+    position: absolute; top: 12px; right: 12px;
+    background: none; border: none; font-size: 28px; color: var(--muted);
+    cursor: pointer; line-height: 1; padding: 0; width: 32px; height: 32px;
+    transition: all 0.3s ease;
+  }
+  .modal-close:hover {
+    color: var(--gold);
+    transform: scale(1.15);
+  }
+  .modal-account-entry {
+    border: 1px solid var(--gold-light); padding: 12px; border-radius: 6px;
+    margin-bottom: 12px;
+  }
+  .modal-account-entry:last-child { margin-bottom: 0; }
+  .modal-account-bank { font-size: 11px; color: var(--gold); letter-spacing: 1px; margin-bottom: 6px; }
+  .modal-account-num { font-size: 15px; font-weight: 600; color: var(--dark); margin-bottom: 4px; }
+  .modal-account-name { font-size: 12px; color: var(--muted); margin-bottom: 8px; }
+  .modal-copy-btn {
+    background: var(--gold); color: #fff; border: none; padding: 7px 14px;
+    border-radius: 4px; font-size: 12px; cursor: pointer; font-family: 'Noto Serif KR', serif;
+    font-weight: 300; letter-spacing: 0.5px;
+    box-shadow: 0 2px 6px rgba(201,169,110,0.2);
+    transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+  .modal-copy-btn:hover {
+    background: #B5924D;
+    box-shadow: 0 4px 12px rgba(201,169,110,0.3);
+    transform: translateY(-1px);
+  }
+  @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
    .account-info {
      display: none; margin-top: 24px;
      padding: 20px; background: var(--cream);
@@ -787,7 +865,6 @@
       <button class="acct-banner" onclick="openAccountPopup('groom')">신랑측 계좌 보기</button>
       <button class="acct-banner secondary" onclick="openAccountPopup('bride')">신부측 계좌 보기</button>
     </div>
-    <button class="account-toggle" onclick="toggleAccount()">축의금 계좌 보기</button>
     <div class="account-info" id="acctInfo">
       <!-- 신랑측: data-side="groom" -->
       <div class="account-entry" data-side="groom">
@@ -839,6 +916,15 @@
 </div>
 
 <div id="toast">복사되었습니다 ✓</div>
+
+<!-- 모달 팝업 -->
+<div class="modal-overlay" id="accountModal">
+  <div class="modal-content">
+    <button class="modal-close" onclick="closeAccountModal()">✕</button>
+    <h2 class="modal-header" id="modalTitle">계좌 정보</h2>
+    <div id="modalAccounts"></div>
+  </div>
+</div>
 
 <script>
   // ── D-Day ──
@@ -920,52 +1006,46 @@
     btn.textContent = info.classList.contains('open') ? '계좌 닫기' : '축의금 계좌 보기';
   }
 
-  // ── Show specific side's accounts and highlight ──
-  function showAccountSide(side) {
-    const info = document.getElementById('acctInfo');
-    const btn = document.querySelector('.account-toggle');
-    info.classList.add('open');
-    btn.textContent = '계좌 닫기';
-    // highlight matching entries
-    const entries = Array.from(info.querySelectorAll('.account-entry'));
-    entries.forEach(el => {
-      if (el.dataset.side === side) el.classList.add('acct-highlight'); else el.classList.remove('acct-highlight');
-    });
-    const first = entries.find(el => el.dataset.side === side);
-    if (first) first.scrollIntoView({behavior: 'smooth', block: 'center'});
-  }
-
-  // ── Open a small popup window showing only one side's accounts ──
+  // ── 모달 팝업 (모바일 호환) ──
   function openAccountPopup(side) {
-    try {
-      const info = document.getElementById('acctInfo');
-      const entries = Array.from(info.querySelectorAll('.account-entry')).filter(e => e.dataset.side === side);
-      const popup = window.open('', '_blank', 'width=420,height=360,toolbar=0,menubar=0,location=0');
-      if (!popup) { alert('팝업이 차단되었습니다.'); return; }
+    const info = document.getElementById('acctInfo');
+    const entries = Array.from(info.querySelectorAll('.account-entry')).filter(e => e.dataset.side === side);
+    const modal = document.getElementById('accountModal');
+    const title = document.getElementById('modalTitle');
+    const container = document.getElementById('modalAccounts');
+    
+    title.textContent = side === 'groom' ? '신랑측 계좌' : '신부측 계좌';
+    container.innerHTML = '';
+    
+    entries.forEach(e => {
+      const bank = e.querySelector('.bank')?.textContent || '';
+      const num = e.querySelector('.number')?.textContent?.trim() || '';
+      const name = e.querySelector('.name')?.textContent || '';
       
-      const title = side === 'groom' ? '신랑측 계좌' : '신부측 계좌';
-      let html = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>' + title + '</title>';
-      html += '<style>body{font-family:Helvetica,Arial,sans-serif;background:#fff;color:#222;padding:18px}h1{font-size:18px;margin-bottom:12px}.acct{border:1px solid #eee;padding:12px;border-radius:6px;margin-bottom:10px}.bank{font-size:12px;color:#9b7a42}.num{font-size:16px;margin:8px 0;font-weight:600}.name{font-size:13px;color:#666}.copy{background:#C9A96E;color:#fff;border:none;padding:8px 10px;border-radius:4px;cursor:pointer}</style>';
-      html += '</head><body><h1>' + title + '</h1>';
-      
-      entries.forEach(function(e) {
-        const bank = e.querySelector('.bank') ? e.querySelector('.bank').textContent : '';
-        const numEl = e.querySelector('.number');
-        const num = numEl ? numEl.textContent.trim() : '';
-        const name = e.querySelector('.name') ? e.querySelector('.name').textContent : '';
-        html += '<div class="acct"><div class="bank">' + bank + '</div><div class="num">' + num + '</div><div class="name">' + name + '</div><div style="margin-top:8px"><button class="copy" data-num="' + num.replace(/"/g, '&quot;') + '">복사</button></div></div>';
-      });
-      
-      html += '<script>document.querySelectorAll(".copy").forEach(function(b){b.onclick=function(){var n=this.getAttribute("data-num");if(n){navigator.clipboard.writeText(n).then(function(){b.textContent="복사됨";setTimeout(function(){b.textContent="복사"},1200)}).catch(function(){alert("복사 실패")})}}});' + '<\/script>';
-      html += '</body></html>';
-      
-      popup.document.write(html);
-      popup.document.close();
-      popup.focus();
-    } catch (err) {
-      console.error('Popup error:', err);
-    }
+      const html = '<div class="modal-account-entry">' +
+        '<div class="modal-account-bank">' + bank + '</div>' +
+        '<div class="modal-account-num">' + num + '</div>' +
+        '<div class="modal-account-name">' + name + '</div>' +
+        (num && num !== '(입력 필요)' ? '<button class="modal-copy-btn" onclick="copyTextFromModal(\'' + num.replace(/'/g, "\\'") + '\')">복사</button>' : '') +
+        '</div>';
+      container.innerHTML += html;
+    });
+    
+    modal.classList.add('show');
   }
+  
+  function closeAccountModal() {
+    document.getElementById('accountModal').classList.remove('show');
+  }
+  
+  function copyTextFromModal(text) {
+    copyText(text);
+  }
+  
+  // 모달 외부 클릭시 닫기
+  document.getElementById('accountModal').addEventListener('click', function(e) {
+    if (e.target === this) closeAccountModal();
+  });
 
   // ── 복사 ──
   function copyText(text) {
