@@ -251,6 +251,17 @@
     letter-spacing: 4px; color: var(--gold);
     margin-bottom: 20px; display: block;
   }
+
+  /* section label as an image */
+  .section-label-image {
+    display: block;
+    width: 100%;
+    max-width: 320px;
+    height: auto;
+    margin: 0 auto 12px;
+    border-radius: 6px;
+    border: 0.5px solid var(--gold-light);
+  }
   .detail-item { margin: 24px 0; }
   .detail-item .label {
     font-size: 10px; letter-spacing: 4px;
@@ -346,6 +357,17 @@
     padding: 0; text-decoration: underline; text-underline-offset: 3px;
   }
 
+  /* 약도 이미지 */
+  .map-image {
+    display: block;
+    width: 100%;
+    max-width: 720px;
+    height: auto;
+    margin: 18px auto 0;
+    border-radius: 6px;
+    border: 0.5px solid var(--gold-light);
+  }
+
   /* ── 혼주 정보 ── */
   #parents {
     background: white;
@@ -389,6 +411,41 @@
     color: var(--gold-dark); opacity: 0.7; letter-spacing: 2px;
   }
 
+  /* Horizontal gallery */
+  .gallery-wrapper {
+    position: relative; margin-top: 18px;
+    display: flex; align-items: center;
+  }
+  .gallery-track {
+    overflow-x: auto; -webkit-overflow-scrolling: touch;
+    display: flex; gap: 12px; padding: 12px 6px;
+    scroll-snap-type: x mandatory; scroll-behavior: smooth;
+    width: 100%;
+  }
+  .gallery-item {
+    flex: 0 0 100%; /* show exactly one item at a time */
+    scroll-snap-align: center;
+    border-radius: 8px; overflow: hidden; position: relative;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.08);
+  }
+  .gallery-item img { display: block; width: 100%; height: auto; }
+  .gallery-nav {
+    background: rgba(44,35,24,0.85); color: #fff; border: none;
+    width: 40px; height: 40px; border-radius: 50%; cursor: pointer;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 22px; line-height: 1; margin: 0 8px;
+  }
+  .gallery-nav:disabled { opacity: 0.35; cursor: default; }
+
+  .gallery-thumbs { display: flex; gap: 8px; justify-content: center; margin-top: 12px; }
+  .gallery-thumb { width: 56px; height: 40px; object-fit: cover; border-radius: 4px; cursor: pointer; opacity: 0.7; }
+  .gallery-thumb.active { outline: 2px solid var(--gold); opacity: 1; }
+
+  @media (min-width: 900px) {
+    .gallery-item { flex: 0 0 100%; }
+    .gallery-thumb { width: 80px; height: 56px; }
+  }
+
   /* ── 계좌번호 ── */
   #account {
     background: white;
@@ -396,30 +453,39 @@
     text-align: center;
   }
   .account-toggle {
-    background: none; border: 1px solid var(--gold-light);
-    color: var(--gold-dark); cursor: pointer;
-    padding: 12px 28px; font-size: 13px;
-    letter-spacing: 2px; font-family: 'Noto Serif KR', serif;
-    border-radius: 2px;
-    transition: all 0.3s ease;
-    display: block; width: 100%; max-width: 240px; margin: 24px auto 0;
+    display: block; width: 100%; max-width: 320px; margin: 18px auto 0;
+    padding: 12px 18px; border-radius: 6px; border: none;
+    background: var(--gold); color: #fff; cursor: pointer;
+    font-family: 'Noto Serif KR', serif; font-size: 14px; letter-spacing: 1px;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.06);
   }
-  .account-toggle:hover { background: var(--gold); color: white; border-color: var(--gold); }
-  .account-info {
-    display: none; margin-top: 24px;
-    padding: 20px; background: var(--cream);
-    border: 0.5px solid var(--gold-light); border-radius: 4px;
-  }
-  .account-info.open { display: block; animation: fadeUp 0.4s ease; }
-  .account-entry { margin: 14px 0; }
-  .account-entry .bank { font-size: 11px; letter-spacing: 2px; color: var(--gold); }
-  .account-entry .number {
-    font-family: 'Cormorant Garamond', serif;
-    font-size: 20px; color: var(--dark); margin: 4px 0;
-    cursor: pointer; letter-spacing: 1px;
-  }
-  .account-entry .name { font-size: 12px; color: var(--muted); }
-  .copy-hint { font-size: 11px; color: var(--gold); margin-top: 4px; opacity: 0.8; }
+  .account-toggle.secondary { background: #3C1E1E; }
++  /* banners & highlight (merged from index edits) */
++  .account-banners {
++    display: flex; gap: 12px; justify-content: center; margin-top: 18px;
++  }
++  .acct-banner {
++    flex: 1; max-width: 320px; padding: 12px 18px; border-radius: 6px;
++    background: var(--gold); color: #fff; border: none; cursor: pointer;
++    font-family: 'Noto Serif KR', serif; font-size: 13px; letter-spacing: 1px;
++  }
++  .acct-banner.secondary { background: #3C1E1E; }
++  .account-entry.acct-highlight { background: rgba(201,169,110,0.12); border-radius: 4px; padding: 10px; }
+   .account-info {
+     display: none; margin-top: 24px;
+     padding: 20px; background: var(--cream);
+     border: 0.5px solid var(--gold-light); border-radius: 4px;
+   }
+   .account-info.open { display: block; animation: fadeUp 0.4s ease; }
+   .account-entry { margin: 14px 0; }
+   .account-entry .bank { font-size: 11px; letter-spacing: 2px; color: var(--gold); }
+   .account-entry .number {
+     font-family: 'Cormorant Garamond', serif;
+     font-size: 20px; color: var(--dark); margin: 4px 0;
+     cursor: pointer; letter-spacing: 1px;
+   }
+   .account-entry .name { font-size: 12px; color: var(--muted); }
+   .copy-hint { font-size: 11px; color: var(--gold); margin-top: 4px; opacity: 0.8; }
 
   /* ── 푸터 ── */
   footer {
@@ -593,8 +659,8 @@
 
     <div class="detail-item">
       <p class="label">Venue</p>
-      <p class="value">더 채플</p>
-      <p class="sub">서울특별시 강남구 청담동 123-45<br>더 채플 웨딩홀 2층 그랜드홀</p>
+      <p class="value">루이비스컨벤션</p>
+      <p class="sub">서울특별시 강남구 청담동 123-45<br>더 채플 웨딩홀 2층 그레이스홀</p>
     </div>
 
     <div class="divider"><span>✦</span></div>
@@ -644,10 +710,12 @@
       <p class="addr-text">
         루이비스컨벤션<br>
         대전 유성구 테크노중앙로 161 스카이파크호텔 <br>
-        1층 그랜드홀
+        1층 그레이스홀
       </p>
       <button class="addr-copy" onclick="copyText('대전 유성구 테크노중앙로 161 스카이파크호텔 1층 루이비스컨벤션')">주소 복사</button>
     </div>
+    <!-- 약도 이미지 -->
+    <img src="image/map.png" alt="약도" class="map-image">
     <div class="map-buttons">
       <a class="map-btn map-btn-naver"
          href="https://naver.me/GALROCM9"
@@ -668,17 +736,16 @@
   <section id="gallery" class="reveal">
     <span class="section-label">Gallery</span>
     <div class="ornament">— ✦ —</div>
-    <div class="photo-grid">
-      <div class="photo-slot" style="grid-column:span 2; aspect-ratio:16/9;">
-        <p class="placeholder-text">Our Story</p>
+
+    <div class="gallery-wrapper">
+      <button class="gallery-nav prev" aria-label="Previous">‹</button>
+      <div class="gallery-track" id="galleryTrack" tabindex="0">
+        <!-- images will be appended here by JS if they exist: image/gallery/1.jpg ... 20.jpg -->
       </div>
-      <div class="photo-slot">
-        <p class="placeholder-text">Photo</p>
-      </div>
-      <div class="photo-slot">
-        <p class="placeholder-text">Photo</p>
-      </div>
+      <button class="gallery-nav next" aria-label="Next">›</button>
     </div>
+
+    <div class="gallery-thumbs" id="galleryThumbs" aria-hidden="true"></div>
   </section>
 
   <!-- ─── 혼주 ─── -->
@@ -697,8 +764,8 @@
       <div class="vline"></div>
       <div class="parent-col">
         <span class="side">신부측</span>
-        <div class="parent-row"><span class="role">부</span> 이철수</div>
-        <div class="parent-row"><span class="role">모</span> 최미자</div>
+        <div class="parent-row"><span class="role">부</span> 임재운</div>
+        <div class="parent-row"><span class="role">모</span> 김진숙</div>
         <div class="parent-row" style="margin-top:16px; font-size:15px;">
           <strong>임헤린</strong>
         </div>
@@ -712,26 +779,55 @@
     <p style="font-size:13px; color:var(--muted); line-height:2; letter-spacing:0.5px;">
       참석이 어려우신 분들께서는<br>마음만 전달해 주셔도 감사하겠습니다.
     </p>
+    <div class="account-banners">
+      <button class="acct-banner" onclick="openAccountPopup('groom')">신랑측 계좌 보기</button>
+      <button class="acct-banner secondary" onclick="openAccountPopup('bride')">신부측 계좌 보기</button>
+    </div>
     <button class="account-toggle" onclick="toggleAccount()">축의금 계좌 보기</button>
     <div class="account-info" id="acctInfo">
-      <div class="account-entry">
+      <!-- 신랑측: data-side="groom" -->
+      <div class="account-entry" data-side="groom">
         <p class="bank">신랑측 · 신한은행</p>
         <p class="number" onclick="copyText('110-123-456789')">110-123-456789</p>
         <p class="name">감제원</p>
         <p class="copy-hint">계좌번호를 클릭하면 복사됩니다</p>
       </div>
+      <div class="account-entry" data-side="groom">
+        <p class="bank">신랑 아버지 · (은행)</p>
+        <p class="number">(입력 필요)</p>
+        <p class="name">감상도</p>
+      </div>
+      <div class="account-entry" data-side="groom">
+        <p class="bank">신랑 어머니 · (은행)</p>
+        <p class="number">(입력 필요)</p>
+        <p class="name">김정숙</p>
+      </div>
+
       <div class="divider" style="margin:16px 0;"><span>✦</span></div>
-      <div class="account-entry">
+
+      <!-- 신부측: data-side="bride" -->
+      <div class="account-entry" data-side="bride">
         <p class="bank">신부측 · 카카오뱅크</p>
         <p class="number" onclick="copyText('3333-12-3456789')">3333-12-3456789</p>
         <p class="name">임헤린</p>
+        <p class="copy-hint">계좌번호를 클릭하면 복사됩니다</p>
+      </div>
+      <div class="account-entry" data-side="bride">
+        <p class="bank">신부 아버지 · (은행)</p>
+        <p class="number">(입력 필요)</p>
+        <p class="name">이철수</p>
+      </div>
+      <div class="account-entry" data-side="bride">
+        <p class="bank">신부 어머니 · (은행)</p>
+        <p class="number">(입력 필요)</p>
+        <p class="name">최미자</p>
       </div>
     </div>
   </section>
 
   <!-- ─── 푸터 ─── -->
   <footer>
-    <p class="footer-names">감제원 & 임헤린</p>
+    <p class="footer-names">감제원 & 임혜린</p>
     <p>2026년 11월 14일 토요일<br>오후 3시 · 루이비스컨벤션</p>
     <div style="margin-top:28px; color:var(--gold); opacity:0.5; font-size:18px; letter-spacing:8px;">✦ ✦ ✦</div>
   </footer>
@@ -787,6 +883,23 @@
     setTimeout(() => document.getElementById('loader').classList.add('hidden'), 900);
   });
 
+  // Safety fallback: if loader still visible after a few seconds, force-hide it
+  setTimeout(() => {
+    try {
+      const l = document.getElementById('loader');
+      if (l && !l.classList.contains('hidden')) {
+        console.warn('Loader timeout: forcing hide');
+        l.classList.add('hidden');
+      }
+    } catch (e) { /* ignore */ }
+  }, 4000);
+
+  // If an uncaught error happens, hide loader so the UI is not blocked
+  window.addEventListener('error', (ev) => {
+    try { document.getElementById('loader').classList.add('hidden'); } catch (e) {}
+    console.error('Unhandled error:', ev);
+  });
+
   // ── 스크롤 reveal ──
   const observer = new IntersectionObserver(entries => {
     entries.forEach(e => {
@@ -803,6 +916,53 @@
     btn.textContent = info.classList.contains('open') ? '계좌 닫기' : '축의금 계좌 보기';
   }
 
+  // ── Show specific side's accounts and highlight ──
+  function showAccountSide(side) {
+    const info = document.getElementById('acctInfo');
+    const btn = document.querySelector('.account-toggle');
+    info.classList.add('open');
+    btn.textContent = '계좌 닫기';
+    // highlight matching entries
+    const entries = Array.from(info.querySelectorAll('.account-entry'));
+    entries.forEach(el => {
+      if (el.dataset.side === side) el.classList.add('acct-highlight'); else el.classList.remove('acct-highlight');
+    });
+    const first = entries.find(el => el.dataset.side === side);
+    if (first) first.scrollIntoView({behavior: 'smooth', block: 'center'});
+  }
+
+  // ── Open a small popup window showing only one side's accounts ──
+  function openAccountPopup(side) {
+    try {
+      const info = document.getElementById('acctInfo');
+      const entries = Array.from(info.querySelectorAll('.account-entry')).filter(e => e.dataset.side === side);
+      const popup = window.open('', '_blank', 'width=420,height=360,toolbar=0,menubar=0,location=0');
+      if (!popup) { alert('팝업이 차단되었습니다.'); return; }
+      
+      const title = side === 'groom' ? '신랑측 계좌' : '신부측 계좌';
+      let html = '<!doctype html><html><head><meta charset="utf-8"><meta name="viewport" content="width=device-width"><title>' + title + '</title>';
+      html += '<style>body{font-family:Helvetica,Arial,sans-serif;background:#fff;color:#222;padding:18px}h1{font-size:18px;margin-bottom:12px}.acct{border:1px solid #eee;padding:12px;border-radius:6px;margin-bottom:10px}.bank{font-size:12px;color:#9b7a42}.num{font-size:16px;margin:8px 0;font-weight:600}.name{font-size:13px;color:#666}.copy{background:#C9A96E;color:#fff;border:none;padding:8px 10px;border-radius:4px;cursor:pointer}</style>';
+      html += '</head><body><h1>' + title + '</h1>';
+      
+      entries.forEach(function(e) {
+        const bank = e.querySelector('.bank') ? e.querySelector('.bank').textContent : '';
+        const numEl = e.querySelector('.number');
+        const num = numEl ? numEl.textContent.trim() : '';
+        const name = e.querySelector('.name') ? e.querySelector('.name').textContent : '';
+        html += '<div class="acct"><div class="bank">' + bank + '</div><div class="num">' + num + '</div><div class="name">' + name + '</div><div style="margin-top:8px"><button class="copy" data-num="' + num.replace(/"/g, '&quot;') + '">복사</button></div></div>';
+      });
+      
+      html += '<script>document.querySelectorAll(".copy").forEach(function(b){b.onclick=function(){var n=this.getAttribute("data-num");if(n){navigator.clipboard.writeText(n).then(function(){b.textContent="복사됨";setTimeout(function(){b.textContent="복사"},1200)}).catch(function(){alert("복사 실패")})}}});' + '<\/script>';
+      html += '</body></html>';
+      
+      popup.document.write(html);
+      popup.document.close();
+      popup.focus();
+    } catch (err) {
+      console.error('Popup error:', err);
+    }
+  }
+
   // ── 복사 ──
   function copyText(text) {
     if (navigator.clipboard) navigator.clipboard.writeText(text);
@@ -815,6 +975,64 @@
     toast.classList.add('show');
     setTimeout(() => toast.classList.remove('show'), 2000);
   }
+
+  // ── Horizontal gallery loader & controls ──
+  (function(){
+    const track = document.getElementById('galleryTrack');
+    const thumbs = document.getElementById('galleryThumbs');
+    const prevBtn = document.querySelector('.gallery-nav.prev');
+    const nextBtn = document.querySelector('.gallery-nav.next');
+    const maxTry = 20;
+    const loaded = [];
+
+    function addImage(src, idx){
+      const item = document.createElement('div'); item.className = 'gallery-item';
+      const img = document.createElement('img'); img.src = src; img.alt = 'Gallery ' + idx;
+      item.appendChild(img);
+      track.appendChild(item);
+
+      const thumb = document.createElement('img'); thumb.className = 'gallery-thumb'; thumb.src = src; thumb.dataset.index = track.children.length-1;
+      thumb.addEventListener('click', ()=>{ scrollToIndex(Number(thumb.dataset.index)); });
+      thumbs.appendChild(thumb);
+      loaded.push(item);
+      updateNav();
+    }
+
+    function tryLoad(i){
+      const src = `image/gallery/${i}.jpg`;
+      const img = new Image(); img.onload = ()=> addImage(src, i);
+      img.onerror = ()=>{};
+      img.src = src;
+    }
+
+    for(let i=1;i<=maxTry;i++) tryLoad(i);
+
+    function getCurrentIndex(){
+      if(track.children.length === 0) return 0;
+      return Math.round(track.scrollLeft / track.clientWidth);
+    }
+
+    function updateNav(){
+      const idx = getCurrentIndex();
+      prevBtn.disabled = idx <= 0;
+      nextBtn.disabled = idx >= Math.max(0, track.children.length - 1);
+      Array.from(thumbs.children).forEach((t,i)=> t.classList.toggle('active', i===idx));
+    }
+
+    function scrollToIndex(i){
+      if(i < 0) i = 0;
+      if(i >= track.children.length) i = track.children.length - 1;
+      const left = i * track.clientWidth;
+      track.scrollTo({left, behavior:'smooth'});
+    }
+
+    prevBtn.addEventListener('click', ()=>{ scrollToIndex(getCurrentIndex() - 1); });
+    nextBtn.addEventListener('click', ()=>{ scrollToIndex(getCurrentIndex() + 1); });
+    track.addEventListener('scroll', ()=> updateNav());
+    window.addEventListener('resize', ()=> updateNav());
+    // initial nav state
+    setTimeout(updateNav, 300);
+  })();
 </script>
 </body>
 </html>
