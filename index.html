@@ -350,14 +350,14 @@
   .map-address-box .addr-text {
     font-size: 14px; color: var(--dark); line-height: 1.9;
   }
-  .map-address-box .addr-copy {
+  .addr-copy {
     margin-top: 10px; font-size: 11px; color: var(--gold);
     cursor: pointer; letter-spacing: 0.8px;
-    background: none; border: none; font-family: inherit;
+    background: none; border: none; font-family: 'Noto Serif KR', serif;
     padding: 4px 0; text-decoration: underline; text-underline-offset: 3px;
     transition: all 0.3s ease;
   }
-  .map-address-box .addr-copy:hover {
+  .addr-copy:hover {
     color: #B5924D;
     opacity: 0.8;
   }
@@ -710,7 +710,7 @@
 
   <!-- ─── 인사말 ─── -->
   <section id="greeting" class="reveal">
-    <span class="section-label">Invitation</span>
+    <span class="section-label">인사말</span>
     <div class="ornament">— ✦ —</div>
     <p class="greeting-text">
       서로가 마주보며 다져온 사랑을<br>
@@ -725,10 +725,10 @@
 
   <!-- ─── 날짜 · 시간 · 장소 ─── -->
   <section id="details" class="reveal">
-    <span class="section-label">Date & Venue</span>
+    <span class="section-label">날짜 & 장소</span>
 
     <div class="detail-item">
-      <p class="label">Date</p>
+      <!-- <p class="label">Date</p> -->
       <p class="value">2026. 11. 14</p>
       <p class="sub">토요일 오후 3시</p>
     </div>
@@ -736,37 +736,34 @@
     <div class="divider"><span>✦</span></div>
 
     <div class="detail-item">
-      <p class="label">Venue</p>
+      <!-- <p class="label">Venue</p> -->
       <p class="value">루이비스컨벤션</p>
       <p class="sub">
         대전 유성구 테크노중앙로 161 스카이파크호텔<br>
         1층 그레이스홀
       </p>
+      <button class="addr-copy" onclick="copyText('대전 유성구 테크노중앙로 161 스카이파크호텔 1층 루이비스컨벤션')">주소 복사</button>
     </div>
 
     <div class="divider"><span>✦</span></div>
 
     <div class="detail-item">
       <p class="label">How to get there</p>
-      <p class="sub" style="font-size:14px; line-height:2.2;">
-        지하철 7호선 청담역 2번 출구 도보 5분<br>
-        주차 : 건물 지하 2층 (3시간 무료)
+      <p class="sub" style="font-size:13px; line-height:2; text-align:left; padding:0 16px;">
+        <strong style="display:block; margin-bottom:8px;">🚗 자가용</strong>
+        북대전 IC에서 출차 후 5분 거리<br>
+        네비게이션: '루이비스컨벤션 대전점' 또는 '호텔스카이파크'<br>
+        <br>
+        <strong style="display:block; margin-bottom:8px;">🚌 대중교통</strong>
+        대전복합터미널: 701번/802번 버스<br>
+        신탄진역: 705번 버스<br>
+        대전역: 급행 2번 후 705번 환승<br>
+        ➡️ '대덕밸리용신교' 하차 (도보 5분)
       </p>
     </div>
 
     <div class="divider"><span>✦</span></div>
 
-    <!-- 약도 -->
-    <div class="ornament">— ✦ —</div>
-    <div class="map-address-box">
-      <span class="addr-label">Address</span>
-      <p class="addr-text">
-        루이비스컨벤션<br>
-        대전 유성구 테크노중앙로 161 스카이파크호텔 <br>
-        1층 그레이스홀
-      </p>
-      <button class="addr-copy" onclick="copyText('대전 유성구 테크노중앙로 161 스카이파크호텔 1층 루이비스컨벤션')">주소 복사</button>
-    </div>
     <!-- 약도 이미지 -->
     <img src="image/map.png" alt="약도" class="map-image">
     <div class="map-buttons">
@@ -816,7 +813,7 @@
 
   <!-- ─── 갤러리 ─── -->
   <section id="gallery" class="reveal">
-    <span class="section-label">Gallery</span>
+    <span class="section-label">갤러리</span>
     <div class="ornament">— ✦ —</div>
 
     <div class="gallery-wrapper">
@@ -832,7 +829,7 @@
 
   <!-- ─── 혼주 ─── -->
   <section id="parents" class="reveal">
-    <span class="section-label">Family</span>
+    <span class="section-label">혼주</span>
     <div class="ornament">— ✦ —</div>
     <div class="parents-grid">
       <div class="parent-col">
@@ -857,7 +854,7 @@
 
   <!-- ─── 계좌번호 ─── -->
   <section id="account" class="reveal">
-    <span class="section-label">Gift</span>
+    <span class="section-label">축의금</span>
     <p style="font-size:13px; color:var(--muted); line-height:2; letter-spacing:0.5px;">
       참석이 어려우신 분들께서는<br>마음만 전달해 주셔도 감사하겠습니다.
     </p>
